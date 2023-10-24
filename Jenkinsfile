@@ -32,7 +32,7 @@ spec:
             steps {
                 container('build') {
                     sh 'ls -last'
-                    sh 'cd HelloWorldApp && dotnet build'
+                    sh 'cd webapp/HelloWorldApp && dotnet build'
                 }
             }
         }
