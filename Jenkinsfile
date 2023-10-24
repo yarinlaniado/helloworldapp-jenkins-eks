@@ -17,14 +17,17 @@ spec:
     - /bin/sh
     - -c
     - 'sleep infinity'
-  - name: docker
-    image: docker
+  - name: dind
+    image: docker:18.05-dind
     securityContext:
-      privileged: true  # Elevates privileges for the container
-    command:
-    - /bin/sh
-    - -c
-    - 'sleep infinity'    
+      privileged: true
+    volumeMounts:
+      - name: dind-storage
+        mountPath: /var/lib/docker
+volumes:
+  - name: dind-storage
+    emptyDir: {} 
+     
 '''
             defaultContainer 'build'
         }       
@@ -40,13 +43,13 @@ spec:
         }
         stage('Push to Docker Hub') {
             steps {
-                container('docker')  {
+                container('dind')  {
                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PW', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                             sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
                             sh "docker build -t yarinlaniado/helloworld-webapp ."
                             sh "docker build -t yarinlaniado/helloworld-webapp:$BUILD_ID ."                            
                             sh "docker push yarinlaniado/helloworld-webapp:$BUILD_ID"
-                            sh "docker push yarinlaniado/helloworld-webapp"                            
+                            sh "docker push yarinlaniado/helloworld-webapp"                       
                         }
 
                 }
