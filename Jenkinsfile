@@ -62,7 +62,7 @@ spec:
           stage('deploy') {
             steps {
                 script {
-                    sh 'cd webapp/HelloWorldApp && dotnet build'
+                    sh 'kubectl -n deployment set image deployments/hello-world-deployment hello-world=yarinlaniado/helloworld-webapp:latest'
                     
                 }
             }
