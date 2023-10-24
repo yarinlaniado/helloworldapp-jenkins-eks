@@ -59,14 +59,6 @@ spec:
                 }
             }
         }
-          stage('Build') {
-            steps {
-                container('build') {
-                    sh 'cd webapp/HelloWorldApp && dotnet build'
-                    
-                }
-            }
-        }
           stage('deploy') {
             steps {
                 script {
