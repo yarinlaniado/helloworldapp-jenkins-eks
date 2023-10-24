@@ -59,10 +59,9 @@ pipeline {
             }
          }
       }
-      stage('Build') {
+      stage('deploy') {
          steps {
             script{
-               sh 'cd webapp/k8s_files'
                sh 'kubectl -n deployment set image deployments/hello-world-deployment hello-world=yarinlaniado/helloworld-webapp:latest'                             
             }
          }
