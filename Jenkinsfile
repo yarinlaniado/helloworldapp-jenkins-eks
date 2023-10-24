@@ -51,7 +51,7 @@ spec:
                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PW', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                             sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'                   
                             sh "docker build -t yarinlaniado/helloworld-webapp ./webapp/HelloWorldApp"
-                            sh "docker build -t yarinlaniado/helloworld-webapp:$BUILD_ID ./webapp/HelloWorldApp"                            
+                            sh "docker build -t yarinlaniado/helloworld-webapp:${VERSION} ./webapp/HelloWorldApp"                            
                             sh "docker push yarinlaniado/helloworld-webapp:${VERSION}"
                             sh "docker push yarinlaniado/helloworld-webapp"                       
                         }
