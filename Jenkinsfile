@@ -1,38 +1,61 @@
-// Uses Declarative syntax to run commands inside a container.
 pipeline {
     agent {
         kubernetes {
-            // Rather than inline YAML, in a multibranch Pipeline you could use: yamlFile 'jenkins-pod.yaml'
-            // Or, to avoid YAML:
-            // containerTemplate {
-            //     name 'shell'
-            //     image 'ubuntu'
-            //     command 'sleep'
-            //     args 'infinity'
-            // }
+            namespace: 'development'  
+            defaultContainer 'build'
             yaml '''
 apiVersion: v1
 kind: Pod
+metadata:
+  labels:
+    app: dotnet-app
 spec:
   containers:
-  - name: shell
-    image: ubuntu
+  - name: build
+    image: mcr.microsoft.com/dotnet/sdk:7.0-alpine
     command:
-    - sleep
-    args:
-    - infinity
+    - /bin/sh
+    - -c
+    - 'sleep infinity'
+  - name: publish
+    image: mcr.microsoft.com/dotnet/aspnet:7.0-alpine
+    command:
+    - /bin/sh
+    - -c
+    - 'sleep infinity'
 '''
-            // Can also wrap individual steps:
-            // container('shell') {
-            //     sh 'hostname'
-            // }
-            defaultContainer 'shell'
         }
     }
     stages {
-        stage('Main') {
+        stage('Build') {
             steps {
-                sh 'hostname'
+                container('build') {
+                    sh 'cd HelloWorldApp
+                    sh 'dotnet build'
+                }
+            }
+        }
+        stage('Publish') {
+            steps {
+                container('publish') {
+                    sh 'dotnet publish -c Release -o out'
+                }
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    def dockerHubCredentials = credentials('docker-hub-credentials') // Set up Docker Hub credentials in Jenkins
+                    container('publish') {
+                        withCredentials([usernamePassword(credentialsId: dockerHubCredentials, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                            sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                            sh "docker build -t yarinlaniado/helloworld-webapp ."
+                            sh "docker build -t yarinlaniado/helloworld-webapp:$BUILD_ID ."                            
+                            sh "docker push yarinlaniado/helloworld-webapp:$BUILD_ID"
+                            sh "docker push yarinlaniado/helloworld-webapp"                            
+                        }
+                    }
+                }
             }
         }
     }
