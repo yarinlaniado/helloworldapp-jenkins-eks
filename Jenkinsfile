@@ -31,7 +31,7 @@ spec:
         stage('Build') {
             steps {
                 container('build') {
-                    sh 'ls -last'
+
                     sh 'cd webapp/HelloWorldApp && dotnet build'
                 }
             }
@@ -39,7 +39,8 @@ spec:
         stage('Publish') {
             steps {
                 container('publish') {
-                    sh 'dotnet publish -c Release -o out'
+                    sh 'ls -last'                
+                    sh 'cd webapp/HelloWorldApp && dotnet publish -c Release -o out'
                 }
             }
         }
