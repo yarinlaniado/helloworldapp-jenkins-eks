@@ -17,6 +17,12 @@ spec:
     - /bin/sh
     - -c
     - 'sleep infinity'
+  - name: docker
+    image: docker
+    command:
+    - /bin/sh
+    - -c
+    - 'sleep infinity'    
 '''
             defaultContainer 'build'
         }       
@@ -32,9 +38,9 @@ spec:
         }
         stage('Push to Docker Hub') {
             steps {
-                script {
+                container('docker')  {
                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PW', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                            sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                            sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
                             sh "docker build -t yarinlaniado/helloworld-webapp ."
                             sh "docker build -t yarinlaniado/helloworld-webapp:$BUILD_ID ."                            
                             sh "docker push yarinlaniado/helloworld-webapp:$BUILD_ID"
