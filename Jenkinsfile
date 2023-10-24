@@ -21,12 +21,13 @@ spec:
     image: docker:18.05-dind
     securityContext:
       privileged: true
-    volumeMounts:
-      - name: dind-storage
-        mountPath: /var/lib/docker
-volumes:
+  volumes:
   - name: dind-storage
-    emptyDir: {} 
+    emptyDir: {}  # This volume definition is now at the Pod level
+  volumeMounts:
+  - name: dind-storage
+    mountPath: /var/lib/docker
+
      
 '''
             defaultContainer 'build'
