@@ -18,11 +18,10 @@ spec:
     - -c
     - 'sleep infinity'
   - name: docker
-    image: docker
-    command:
-    - /bin/sh
-    - -c
-    - 'sleep infinity'    
+    image: docker:dind
+    securityContext:
+      privileged: true  # Elevates privileges for the container
+    restartPolicy: Never    
 '''
             defaultContainer 'build'
         }       
@@ -40,6 +39,7 @@ spec:
             steps {
                 container('docker')  {
                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PW', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                            sh 'su sudo'
                             sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
                             sh "docker build -t yarinlaniado/helloworld-webapp ."
                             sh "docker build -t yarinlaniado/helloworld-webapp:$BUILD_ID ."                            
