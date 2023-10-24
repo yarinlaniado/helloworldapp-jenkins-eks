@@ -30,7 +30,7 @@ spec:
         stage('Build') {
             steps {
                 container('build') {
-                    sh 'cd HelloWorldApp
+                    sh 'cd HelloWorldApp'
                     sh 'dotnet build'
                 }
             }
