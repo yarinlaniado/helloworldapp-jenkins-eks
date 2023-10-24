@@ -33,7 +33,6 @@ spec:
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    container('publish') {
                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PW', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                             sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                             sh "docker build -t yarinlaniado/helloworld-webapp ."
@@ -41,7 +40,7 @@ spec:
                             sh "docker push yarinlaniado/helloworld-webapp:$BUILD_ID"
                             sh "docker push yarinlaniado/helloworld-webapp"                            
                         }
-                    }
+
                 }
             }
         }
