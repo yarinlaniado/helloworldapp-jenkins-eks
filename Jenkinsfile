@@ -1,13 +1,12 @@
 pipeline {
     agent {
         kubernetes {
-            namespace: 'development'  
-            defaultContainer 'build'
             yaml '''
 apiVersion: v1
 kind: Pod
 metadata:
   name: dotnet-app
+  namespace: development
   labels:
     app: dotnet-app
 spec:
@@ -25,6 +24,7 @@ spec:
     - -c
     - 'sleep infinity'
 '''
+            defaultContainer 'build'
         }
     }
     stages {
