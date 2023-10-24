@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+
+
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: laniado.webapp.io
+    http:
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: hello-world-service
+              port:
+                number: 32300
