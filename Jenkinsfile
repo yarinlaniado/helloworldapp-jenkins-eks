@@ -46,11 +46,9 @@ spec:
             steps {
                 container('dind')  {
                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PW', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                            sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-                            sh 'cd webapp/HelloWorldApp'     
-                            sh 'ls -last'                       
-                            sh "docker build -t yarinlaniado/helloworld-webapp ."
-                            sh "docker build -t yarinlaniado/helloworld-webapp:$BUILD_ID ."                            
+                            sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'                   
+                            sh "docker build -t yarinlaniado/helloworld-webapp ./webapp/HelloWorldApp"
+                            sh "docker build -t yarinlaniado/helloworld-webapp:$BUILD_ID ./webapp/HelloWorldApp"                            
                             sh "docker push yarinlaniado/helloworld-webapp:$BUILD_ID"
                             sh "docker push yarinlaniado/helloworld-webapp"                       
                         }
