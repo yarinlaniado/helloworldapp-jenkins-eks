@@ -6,8 +6,8 @@ pipeline {
             yaml '''
 apiVersion: v1
 kind: Pod
-name: dotnet-app
 metadata:
+  name: dotnet-app
   labels:
     app: dotnet-app
 spec:
