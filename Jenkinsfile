@@ -17,12 +17,6 @@ spec:
     - /bin/sh
     - -c
     - 'sleep infinity'
-  - name: publish
-    image: mcr.microsoft.com/dotnet/aspnet:7.0-alpine
-    command:
-    - /bin/sh
-    - -c
-    - 'sleep infinity'
 '''
             defaultContainer 'build'
         }
@@ -31,16 +25,8 @@ spec:
         stage('Build') {
             steps {
                 container('build') {
-
                     sh 'cd webapp/HelloWorldApp && dotnet build'
-                }
-            }
-        }
-        stage('Publish') {
-            steps {
-                container('publish') {
-                    sh 'ls -last'                
-                    sh 'cd webapp/HelloWorldApp && dotnet publish -c Release -o out'
+                    
                 }
             }
         }
