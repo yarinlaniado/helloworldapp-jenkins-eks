@@ -326,7 +326,7 @@ controller:
   # become the content of the configuration yaml file.  The first line after this is a JCasC root element, eg jenkins, credentials,
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
-    defaultConfig: true
+    defaultConfig: false
     configUrls: []
     # - https://acme.org/jenkins.yaml
     # Remote URL:s for configuration files.
@@ -463,7 +463,7 @@ controller:
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
     # ingressClassName: nginx
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
-     path: "/jenkins"
+    # path: "/jenkins"
     # configures the hostname e.g. jenkins.example.com
     hostName:
     tls:
