@@ -18,10 +18,13 @@ spec:
     - -c
     - 'sleep infinity'
   - name: docker
-    image: docker:dind
+    image: docker
     securityContext:
       privileged: true  # Elevates privileges for the container
-    restartPolicy: Never    
+    command:
+    - /bin/sh
+    - -c
+    - 'sleep infinity'    
 '''
             defaultContainer 'build'
         }       
