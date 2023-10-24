@@ -33,6 +33,9 @@ spec:
             defaultContainer 'build'
         }       
     }
+    environment {
+      VERSION = "1.0.${env.BUILD_ID}"
+    }
     stages {
         stage('Build') {
             steps {
@@ -49,7 +52,7 @@ spec:
                             sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'                   
                             sh "docker build -t yarinlaniado/helloworld-webapp ./webapp/HelloWorldApp"
                             sh "docker build -t yarinlaniado/helloworld-webapp:$BUILD_ID ./webapp/HelloWorldApp"                            
-                            sh "docker push yarinlaniado/helloworld-webapp:$BUILD_ID"
+                            sh "docker push yarinlaniado/helloworld-webapp:${VERSION}"
                             sh "docker push yarinlaniado/helloworld-webapp"                       
                         }
 
