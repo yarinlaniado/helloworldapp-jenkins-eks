@@ -62,7 +62,7 @@ spec:
           stage('deploy') {
             steps {
               sshagent(['DEPLOY_AGNET_SSH']) {
-                sh 'ssh ubuntu@ec2-35-180-140-207.eu-west-3.compute.amazonaws.com'
+                sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-35-180-140-207.eu-west-3.compute.amazonaws.com'
                 sh 'kubectl get nodes'
               }
 
