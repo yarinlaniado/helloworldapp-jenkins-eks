@@ -20,7 +20,11 @@ spec:
   - name: dind
     image: docker:18.05-dind
     securityContext:
-      privileged: true 
+      privileged: true
+  - name: ephemeral-ssh-agent
+    image: linuxserver/openssh-server:latest
+    ports:
+    - containerPort: 22      
   volumes:
   - name: dind-storage
     emptyDir: {}  # This volume definition is now at the Pod level
