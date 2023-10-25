@@ -39,6 +39,8 @@ spec:
     }
     environment {
       VERSION = "1.0.${env.BUILD_ID}"
+      remoteCommands =
+      """kubectl get nodes """
     }
     stages {
         stage('Build') {
@@ -67,8 +69,7 @@ spec:
             steps {
               container('ssh-agent') {
                sshagent(['DEPLOY_AGNET_SSH']) {
-                sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-35-180-140-207.eu-west-3.compute.amazonaws.com'
-                sh 'kubectl get nodes'
+                sh 'ssh -o StrictHostKeyChecking=no -tt ubuntu@ec2-35-180-140-207.eu-west-3.compute.amazonaws.com $remoteCommands'
               }
               }
 
