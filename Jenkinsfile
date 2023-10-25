@@ -10,7 +10,7 @@ metadata:
   labels:
     app: dotnet-app
 spec:
-  containers:
+  coWntainers:
   - name: build
     image: mcr.microsoft.com/dotnet/sdk:7.0-alpine
     command:
@@ -22,11 +22,11 @@ spec:
     securityContext:
       privileged: true
   - name: kubectl
-     image: bitnami/kubectl
-     command:
-     - "sleep"
-     - "240"
-     tty: true      
+    image: bitnami/kubectl
+    command:
+    - "sleep"
+    - "240"
+    tty: true      
   volumes:
   - name: dind-storage
     emptyDir: {}  # This volume definition is now at the Pod level
