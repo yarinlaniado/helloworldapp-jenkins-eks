@@ -23,6 +23,10 @@ spec:
       privileged: true
   - name: kubectl
     image: bitnami/kubectl
+    command:
+    - /bin/sh
+    - -c
+    - 'sleep infinity'
     tty: true      
   volumes:
   - name: dind-storage
