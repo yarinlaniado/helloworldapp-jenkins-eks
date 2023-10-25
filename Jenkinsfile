@@ -69,7 +69,7 @@ spec:
             steps {
               container('ssh-agent') {
                sshagent(['DEPLOY_AGNET_SSH']) {
-                sh 'ssh -o StrictHostKeyChecking=no -tt ubuntu@ec2-35-180-140-207.eu-west-3.compute.amazonaws.com $remoteCommands'
+                sh 'ssh -o StrictHostKeyChecking=no -tt ubuntu@ec2-35-180-140-207.eu-west-3.compute.amazonaws.com kubectl set image deployment/hello-world-deployment hello-world=yarinlaniado/helloworld-webapp:${VERSION}'
               }
               }
 
