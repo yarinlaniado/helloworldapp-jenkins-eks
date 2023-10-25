@@ -68,10 +68,5 @@ spec:
         }
 
     }
-        post {
-            always {
-               deleteDir()
-        }
-    }
 }
 
