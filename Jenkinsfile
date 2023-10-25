@@ -23,9 +23,6 @@ spec:
       privileged: true
   - name: kubectl
     image: bitnami/kubectl
-    command:
-    - "sleep"
-    - "240"
     tty: true      
   volumes:
   - name: dind-storage
@@ -69,7 +66,7 @@ spec:
             steps {
                 container('kubectl') {
                       withKubeConfig([credentialsId: 'K8S_NS_DEPLOYMENT', serverUrl: 'https://kubernetes.default']) {
-                         sh 'kubectl -n deployment set image deployments/hello-world-deployment hello-world=yarinlaniado/helloworld-webapp:latest'
+                         sh "kubectl -n deployment set image deployments/hello-world-deployment hello-world=yarinlaniado/helloworld-webapp:${VERSION}"
                     }                    
 
                     
