@@ -62,7 +62,7 @@ spec:
           stage('deploy') {
             steps {
                 script {
-                      withKubeConfig([credentialsId: 'K8S_DEPLOYMENT', serverUrl: 'https://kubernetes.default']) {
+                      withKubeConfig([credentialsId: 'K8S_NS_DEPLOYMENT', serverUrl: 'https://kubernetes.default']) {
                          sh 'kubectl -n deployment set image deployments/hello-world-deployment hello-world=yarinlaniado/helloworld-webapp:latest'
                     }                    
 

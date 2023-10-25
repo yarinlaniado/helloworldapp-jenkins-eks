@@ -17,5 +17,6 @@ spec:
       containers:
         - name: hello-world
           image: yarinlaniado/helloworld-webapp:latest
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 80
