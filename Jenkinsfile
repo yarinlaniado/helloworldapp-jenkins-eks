@@ -20,14 +20,7 @@ spec:
   - name: dind
     image: docker:18.05-dind
     securityContext:
-      privileged: true
-  - name: kubectl
-    image: bitnami/kubectl
-    command:
-    - /bin/sh
-    - -c
-    - 'sleep 5'
-    tty: true      
+      privileged: true 
   volumes:
   - name: dind-storage
     emptyDir: {}  # This volume definition is now at the Pod level
@@ -68,11 +61,8 @@ spec:
         }
           stage('deploy') {
             steps {
-                container('kubectl') {
-                      withKubeConfig([credentialsId: 'K8S_NS_DEPLOYMENT', serverUrl: 'https://kubernetes.default']) {
-						sh 'ls -last'
-                    }                    
-                    
+                script {
+						sh ' ls -last'
                 }
             }
         }
