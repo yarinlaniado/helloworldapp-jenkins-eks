@@ -10,7 +10,7 @@ metadata:
   labels:
     app: dotnet-app
 spec:
-  coWntainers:
+  containers:
   - name: build
     image: mcr.microsoft.com/dotnet/sdk:7.0-alpine
     command:
