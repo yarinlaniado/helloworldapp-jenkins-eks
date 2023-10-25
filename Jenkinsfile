@@ -21,7 +21,7 @@ spec:
     image: docker:18.05-dind
     securityContext:
       privileged: true
-  - name: ephemeral-ssh-agent
+  - name: ssh-agent
     image: linuxserver/openssh-server:latest
     ports:
     - containerPort: 22      
@@ -64,7 +64,7 @@ spec:
             }
         }
           stage('deploy') {
-            steps {
+            container('ssh-agent') {
               sshagent(['DEPLOY_AGNET_SSH']) {
                 sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-35-180-140-207.eu-west-3.compute.amazonaws.com'
                 sh 'kubectl get nodes'
