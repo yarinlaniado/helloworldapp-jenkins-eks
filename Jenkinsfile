@@ -63,10 +63,10 @@ spec:
                 }
             }
         }
-          stage('ssh-agent') {
+          stage('deploy') {
             steps {
-              sshagent(['DEPLOY_AGNET_SSH']) {
-               container('build') {
+              container('ssh-agent') {
+               sshagent(['DEPLOY_AGNET_SSH']) {
                 sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-35-180-140-207.eu-west-3.compute.amazonaws.com'
                 sh 'kubectl get nodes'
               }
