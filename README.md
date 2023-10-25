@@ -104,11 +104,3 @@ After the pipeline is complete, the application is accessible via the Ingress se
 - [laniado.webapp.io](http://laniado.webapp.io)
 
 By describing the pod and checking the site, you can verify that the image has been changed to the latest image.
-
-## Contributing
-
-Contributions to this project are welcome. If you'd like to contribute, please follow our guidelines for issues, pull requests, and coding standards.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
