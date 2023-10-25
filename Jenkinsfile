@@ -61,9 +61,13 @@ spec:
         }
           stage('deploy') {
             steps {
-                script {
-						sh ' ls -last'
+            kubeconfig(credentialsId: 'K8S_NS_DEPLOYMENT', serverUrl: 'https://kubernetes.default') {
+                            script {
+						sh ' kubectl version'
                 }
+
+}
+
             }
         }
 
