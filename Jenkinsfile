@@ -26,7 +26,7 @@ spec:
     command:
     - /bin/sh
     - -c
-    - 'sleep infinity'
+    - 'sleep 5'
     tty: true      
   volumes:
   - name: dind-storage
