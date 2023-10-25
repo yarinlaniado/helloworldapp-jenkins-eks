@@ -21,6 +21,12 @@ spec:
     image: docker:18.05-dind
     securityContext:
       privileged: true
+  - name: kubectl
+     image: bitnami/kubectl
+     command:
+     - "sleep"
+     - "240"
+     tty: true      
   volumes:
   - name: dind-storage
     emptyDir: {}  # This volume definition is now at the Pod level
@@ -61,7 +67,7 @@ spec:
         }
           stage('deploy') {
             steps {
-                script {
+                container('kubectl') {
                       withKubeConfig([credentialsId: 'K8S_NS_DEPLOYMENT', serverUrl: 'https://kubernetes.default']) {
                          kubectl -n deployment set image deployments/hello-world-deployment hello-world=yarinlaniado/helloworld-webapp:latest
                     }                    
