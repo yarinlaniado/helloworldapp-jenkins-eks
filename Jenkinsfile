@@ -69,7 +69,7 @@ spec:
             steps {
                 container('kubectl') {
                       withKubeConfig([credentialsId: 'K8S_NS_DEPLOYMENT', serverUrl: 'https://kubernetes.default']) {
-                         kubectl -n deployment set image deployments/hello-world-deployment hello-world=yarinlaniado/helloworld-webapp:latest
+                         sh 'kubectl -n deployment set image deployments/hello-world-deployment hello-world=yarinlaniado/helloworld-webapp:latest'
                     }                    
 
                     
