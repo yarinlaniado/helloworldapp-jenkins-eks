@@ -1,5 +1,10 @@
 vpc-059e1ce9c8af17904
 
+aws ec2 describe-instances --filters Name=vpc-id,Values=vpc-059e1ce9c8af17904 --query 'Reservations[*].Instances[].SubnetId'
+
+https://aws.amazon.com/blogs/storage/deploying-jenkins-on-amazon-eks-with-amazon-efs/
+
+
 aws ec2 create-security-group \
 --region eu-west-3 \
 --group-name efs-mount-sg \
@@ -79,7 +84,7 @@ aws ec2 describe-instances --filters Name=vpc-id,Values=vpc-059e1ce9c8af17904 --
 
 aws efs create-mount-target \
 --file-system-id fs-05fdcd51760f7b5e5 \
---subnet-id subnet-0e6d8f2efae01c625 \
+--subnet-id subnet-0133d6a0faed167b8 \
 --security-group sg-07205b6bc257fa4ad \
 --region eu-west-3 \
 
