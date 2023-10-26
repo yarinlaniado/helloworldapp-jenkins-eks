@@ -43,6 +43,10 @@ spec:
       """kubectl get nodes """
     }
     stages {
+          stage('CleanWorkspace') {
+            steps {
+                deletedir()
+            }
         stage('Build') {
             steps {
                 container('build') {
