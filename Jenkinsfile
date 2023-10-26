@@ -77,10 +77,5 @@ spec:
         }
 
     }
-      post {
-        always {
-            sh 'rm -rf /home/jenkins/agent/workspace/hello-world-k8s'
-        }
-    }
 }
 
