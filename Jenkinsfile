@@ -47,6 +47,7 @@ spec:
             steps {
                 deletedir()
             }
+           }
         stage('Build') {
             steps {
                 container('build') {
