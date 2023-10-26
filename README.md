@@ -12,9 +12,6 @@ in one namespace and runs the deployment on another
 - [Jenkins Configuration](#jenkins-configuration)
 - [Pipeline](#pipeline)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Introduction
 
 This project is focused on the setup and automation of a Jenkins pipeline for compiling a .NET-based web application and deploying it to a Kubernetes cluster. It covers the creation of infrastructure on AWS using EKS, configuration of Jenkins, and the implementation of a CI/CD pipeline.
