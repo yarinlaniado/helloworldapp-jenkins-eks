@@ -46,7 +46,7 @@ spec:
         stage('Build') {
             steps {
                 container('build') {
-                    sh 'cd webapp/HelloWorldApp && dotnet publish -c Release -o out'
+                    sh 'cd webapp/HelloWorldApp && dotnet build -c Release && dotnet publish -c Release -o out'
                 }
             }
         }
