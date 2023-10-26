@@ -74,7 +74,7 @@ After the EKS is provisioned, I did the following:
 ## Jenkins Configuration
 
 - Helm was used to deploy Jenkins to the EKS cluster with specific configurations in the 'devops' namespace.
-- Jenkins plugins were installed, including SSH agent, stage view, k8s, git, and recommended plugins.
+- Jenkins plugins were installed, including SSH agent, stage view, k8s, git, Workspace Cleanup, and recommended plugins.
 - Several credentials were created:
   - `DOCKERHUB_PW`: Docker Hub username and password for future project delivery.
   - `K8S_NS_DEPLOYMENT`: Kubernetes namespace development secret with the service account token for creating ephemeral agents.
@@ -116,6 +116,10 @@ The Jenkins pipeline follows a four-stage process:
 - Uses SSH to connect to a remote server and updates a Kubernetes deployment to use the newly built Docker image.
 - Sets the image to the new image that was pushed before.
 - Initiates a rolling update for the new image.
+
+### POST - always
+
+- using Workspace Cleanup plugin to delete the working directory 
 
 ## Usage
 
