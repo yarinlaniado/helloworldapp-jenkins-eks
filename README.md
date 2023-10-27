@@ -1,6 +1,6 @@
 # Jenkins CI/CD Pipeline for .NET Application on AWS EKS
 
-My mission was to create a Kubernetes cluster with a Jenkins pod and a pipeline that runs a build in one namespace and runs the deployment in another namespace.
+My mission was to create a Kubernetes cluster with a Jenkins pod on devops namespace and a pipeline that runs a build in one namespace called devops and runs the deployment in another namespace called deployment.
 
 ## Table of Contents
 
