@@ -1,6 +1,6 @@
 # Project README
 
-This README provides an overview of the steps and processes involved in setting up a Jenkins pipeline for compiling and deploying a .NET-based web application in a Kubernetes (k8s) cluster. The project involves creating a Jenkins instance inside a pod in the k8s cluster in devops namespace, connecting it to Git, and configuring the pipeline to compile and deploy the web application on deployment namespace. 
+This README provides an overview of the steps and processes involved in setting up a Jenkins pipeline for compiling and deploying a .NET-based web application in a Kubernetes (k8s) cluster. The project involves creating a Jenkins instance inside a pod in the k8s cluster in devops namespace, connecting it to Git, and configuring the pipeline to compile  the web application on devops namespace, and deploy it on deployment namespace
 
 ## Project Steps
 
