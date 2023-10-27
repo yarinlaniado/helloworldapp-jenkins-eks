@@ -66,7 +66,7 @@ For data persistence, I created the following AWS objects:
 
 After the EKS is provisioned, I did the following:
 - For NLB and Ingress, I used YAML files to configure them and applied them to the cluster.
-- I created 3 namespaces: devops, development, deployment.
+- I created 2 namespaces: devops, deployment.
 - I set up a simple service for the web app and an ingress for it.
 - I created a simple deployment that uses the initial version of the web app.
 - For the Jenkins server, I used HELM to install Jenkins in the 'devops' namespace.
@@ -81,11 +81,11 @@ After the EKS is provisioned, I did the following:
   - `DEPLOY_AGENT_SSH`: SSH secret for the agent that runs and deploys the application.
   
 I created a job called hello-world-k8s.
-I configured my Kubernetes cloud in the Jenkins controller to use the local EKS Kubernetes API, and by default, it will use the namespace called 'development.' For that, I needed to create a secret and a service account to have control over that namespace.
+I configured my Kubernetes cloud in the Jenkins controller to use the local EKS Kubernetes API, and by default, it will use the namespace called 'devops.' For that, Helm automatically created all the thing that are necessary for it to work.  
 
 ## Pipeline
 
-The pipeline is using Kubernetes ephemeral agents:
+The pipeline is using Kubernetes ephemeral agents and runs them on devops namespace:
 
 - "build" - dotnet/sdk:7.0-alpine image, which is the default image for building the project.
 - "dind" - docker:18.05-dind image used to create the image, tag it, and push it to my DockerHub registry repo called 'yarinlaniado/helloworld-webapp.'

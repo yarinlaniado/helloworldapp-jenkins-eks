@@ -1,6 +1,6 @@
 # Project README
 
-This README provides an overview of the steps and processes involved in setting up a Jenkins pipeline for compiling and deploying a .NET-based web application in a Kubernetes (k8s) cluster. The project involves creating a Jenkins instance inside a pod in the k8s cluster, connecting it to Git, and configuring the pipeline to compile and deploy the web application. 
+This README provides an overview of the steps and processes involved in setting up a Jenkins pipeline for compiling and deploying a .NET-based web application in a Kubernetes (k8s) cluster. The project involves creating a Jenkins instance inside a pod in the k8s cluster in devops namespace, connecting it to Git, and configuring the pipeline to compile and deploy the web application on deployment namespace. 
 
 ## Project Steps
 
@@ -14,7 +14,7 @@ The web application is a simple "Hello World" application built with C# and ASP.
 
 2. **EKS Cluster Creation**: The EKS cluster was created using Terraform, with two node groups and EBS-CSI for cloud persistence storage, including EFS CSI drivers.
 
-3. **Network Load Balancer (NLB)**: An NLB was created using a Nginx controller YAML file, providing an external entry point to the cluster.
+3. **Network Load Balancer (NLB)**: An NLB was created using a Nginx controller YAML file, providing an external entry point to Jenknis and later on, to the application.
 
 4. **Ingress Configuration**: To expose the applications, two ingresses were created, one for the web app and one for Jenkins, for local testing I took the ip of the nlb dns and wrote it inside /etc/hosts
 
@@ -26,8 +26,13 @@ The web application is a simple "Hello World" application built with C# and ASP.
 
 ### Jenkins Setup
 
-1. **Helm Installation**: Jenkins was installed in the cluster using Helm. The existing PVC, created earlier was used to enable persistence storage while disabling Jenkins Configuration as Code to prevent configuration resets.
-
+1. **Helm Installation**: Jenkins was installed in the cluster using Helm. The existing VPC, created earlier was used to enable persistence storage while disabling Jenkins Configuration as Code to prevent configuration resets.
+It is installing it on namespace called devops
+```sheel
+controller.JCasC.defaultConfig=false - to make the configuration not resetting to the default
+persistence.existingClaim=efs-claim - make jenkins use the persistence storage that I created for it
+```
+Helm command
 ```shell
 helm install jenkins jenkins/jenkins --set rbac.create=true,controller.servicePort=80,persistence.existingClaim=efs-claim,controller.JCasC.defaultConfig=false -n devops
 ```
@@ -36,7 +41,6 @@ helm install jenkins jenkins/jenkins --set rbac.create=true,controller.servicePo
 
 3. **Credentials Setup**: The following credentials were created:
    - `DOCKERHUB_PW`: Dockerhub username and password for project delivery.
-   - `Kubernetes_NS_DEPLOYMENT`: Kubernetes namespace development secret, providing service account token for creating ephemeral agents in the development namespace.
    - `DEPLOY_AGENT_SSH`: SSH secret for the agent responsible for running and deploying the application.
 
 4. **Jenkinsfile Configuration**: A Jenkinsfile was used in the repository to define the pipeline.
