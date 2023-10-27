@@ -77,7 +77,6 @@ After the EKS is provisioned, I did the following:
 - Jenkins plugins were installed, including SSH agent, stage view, k8s, git, Workspace Cleanup, and recommended plugins.
 - Several credentials were created:
   - `DOCKERHUB_PW`: Docker Hub username and password for future project delivery.
-  - `K8S_NS_DEPLOYMENT`: Kubernetes namespace development secret with the service account token for creating ephemeral agents.
   - `DEPLOY_AGENT_SSH`: SSH secret for the agent that runs and deploys the application.
   
 I created a job called hello-world-k8s.
